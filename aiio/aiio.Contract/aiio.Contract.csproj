@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\aiio.Framework\aiio.Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Processes\Commands\" />
+    <Folder Include="Processes\Responces\" />
+    <Folder Include="Processes\Requests\" />
+    <Folder Include="Processes\Queries\" />
+  </ItemGroup>
+
+</Project>
