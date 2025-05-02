@@ -14,5 +14,17 @@ namespace aiio.Domain.Models.Users
         public List<Role> Roles { get; private set; } = default!;
         public List<Resource> Resources { get; private set; } = default!;
         public List<Location> Locations { get; private set; } = default!;
+
+
+        public static User Create(Guid id, string title)
+        {
+            var user = new User
+            { 
+                Id = id,
+                Title = title,
+            };
+
+            return user;
+        }
     }
 }

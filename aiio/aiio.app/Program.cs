@@ -6,7 +6,7 @@ namespace aiio.app
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +29,7 @@ namespace aiio.app
 
             var app = builder.Build();
 
-            app.ApplyMigrations();
+            await app.ApplyMigrationsAndSeedAsync();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -51,7 +51,7 @@ namespace aiio.app
 
             app.MapCreateStudentEndpoint();
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

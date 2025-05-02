@@ -1,4 +1,5 @@
-﻿using aiio.Domain.Models.Processes;
+﻿using aiio.Domain.Models.Locations;
+using aiio.Domain.Models.Processes;
 using aiio.Domain.Models.Users;
 using aiio.Framework.BaseModel;
 
@@ -9,5 +10,17 @@ namespace aiio.Domain.Models.Departments
         public Guid CreatedById { get; private set; }
         public User CreatedBy { get; private set; } = default!;
         public List<Process> Processes { get; private set; } = default!;
+
+        public static Department Create(Guid id, string title, User user)
+        {
+            var department = new Department
+            {
+                Id = id,
+                Title = title,
+                CreatedBy = user
+            };
+
+            return department;
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using aiio.Domain.Interfaces;
 using aiio.Domain.Models.Processes;
-using aiio.Domain.Models.Students;
 using aiio.Infrastructure.Persistence;
 using aiio.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,19 +15,20 @@ namespace aiio.Infrastructure
         {
             services.AddDbContext<AiioDbContext>(options =>
                 options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
-            
-            services.AddScoped<IProcessRepository, ProcessRepository>();            
 
+            services.AddScoped<IProcessRepository, ProcessRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
 
-        public static void ApplyMigrations(this IHost app)
+        public static async Task ApplyMigrationsAndSeedAsync(this IHost app)
         {
             using var scope = app.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<AiioDbContext>();
+
             db.Database.Migrate();
+            await DatabaseSeeder.SeedAsync(scope.ServiceProvider);
         }
     }
 }
