@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Processes\Commands\" />
-    <Folder Include="Processes\Responces\" />
-    <Folder Include="Processes\Requests\" />
-    <Folder Include="Processes\Queries\" />
+    <PackageReference Include="FluentResults" Version="3.16.0" />
   </ItemGroup>
 
 </Project>

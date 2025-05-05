@@ -1,4 +1,5 @@
 ﻿using aiio.app.Endpoints;
+using aiio.app.Endpoints.Processes;
 using aiio.Application;
 using aiio.Infrastructure;
 
@@ -49,7 +50,7 @@ namespace aiio.app
 
             app.MapGet("/", () => "API is running ✅");
 
-            app.MapCreateStudentEndpoint();
+            app.MapGetProcessesEndpoint();
 
             await app.RunAsync();
         }
