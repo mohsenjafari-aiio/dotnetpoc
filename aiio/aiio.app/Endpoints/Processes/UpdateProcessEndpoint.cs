@@ -1,6 +1,6 @@
 ﻿using aiio.Contract.Processes.Commands;
 using aiio.Contract.Processes.Requests;
-using aiio.Contract.Student.Responces;
+using aiio.Contract.Processes.Responces;
 using aiio.Framework.Abstractions;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +13,7 @@ namespace aiio.app.Endpoints.Processes
         {
             endpoints.MapPost("/api/UpdateProcess", UpdateProcess)
                 .WithTags("Process")
-                .Produces<StudentResponse>(StatusCodes.Status201Created)
+                .Produces<UpdateProcessResponse>(StatusCodes.Status201Created)
                 .Produces(StatusCodes.Status400BadRequest)
                 .Produces(StatusCodes.Status401Unauthorized)
                 .WithName("UpdateProcess")

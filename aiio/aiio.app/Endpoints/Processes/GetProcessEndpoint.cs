@@ -1,5 +1,5 @@
 ﻿using aiio.Contract.Processes.Queries;
-using aiio.Contract.Student.Responces;
+using aiio.Contract.Processes.Responces;
 using aiio.Framework.Abstractions;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ namespace aiio.app.Endpoints.Processes
         {
             endpoints.MapGet("/api/GetProcessById", GetProcess)
                 .WithTags("Process")
-                .Produces<StudentResponse>(StatusCodes.Status201Created)
+                .Produces<GetProcessResponse>(StatusCodes.Status201Created)
                 .Produces(StatusCodes.Status400BadRequest)
                 .Produces(StatusCodes.Status401Unauthorized)
                 .WithName("GetProcess")
