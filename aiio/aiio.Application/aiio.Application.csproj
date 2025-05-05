@@ -16,9 +16,4 @@
     <ProjectReference Include="..\aiio.Framework\aiio.Framework.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Process\Commands\Handlers\" />
-    <Folder Include="Process\Commands\Validators\" />
-  </ItemGroup>
-
 </Project>

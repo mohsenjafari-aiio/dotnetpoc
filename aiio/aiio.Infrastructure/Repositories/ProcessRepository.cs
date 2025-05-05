@@ -19,12 +19,17 @@ namespace aiio.Infrastructure.Repositories
             return process;
         }
 
+        public async Task<Process?> FindById(Guid processId)
+        {
+            return await _aiioDbContext.Processes.FirstOrDefaultAsync(r => r.Id == processId);
+        }
+
         public async Task<IList<Process>> GetAllProcessesAsync()
         {
             return await _aiioDbContext.Processes.ToListAsync();
         }
 
-        public async Task<Process> GetProcessDetailAsync(Guid processId)
+        public async Task<Process?> GetProcessDetailAsync(Guid processId)
         {
             return await _aiioDbContext.Processes
                 .Include(r => r.Resources)
@@ -32,7 +37,7 @@ namespace aiio.Infrastructure.Repositories
                 .Include(r => r.Departments)
                 .Include(r => r.Roles)
                 .Include(r => r.CreatedBy)
-                .SingleAsync(r => r.Id == processId);
+                .FirstOrDefaultAsync(r => r.Id == processId);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public record UpdateProcessRequest
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = default!;
         public string Title { get; set; } = default!;
         public string? Description { get; set; }
     }

@@ -50,7 +50,9 @@ namespace aiio.app
 
             app.MapGet("/", () => "API is running ✅");
 
+            app.MapUpdateProcessEndpoint();
             app.MapGetProcessesEndpoint();
+            app.MapGetProcessEndpoint();
 
             await app.RunAsync();
         }

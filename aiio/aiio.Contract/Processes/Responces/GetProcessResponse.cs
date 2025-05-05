@@ -2,4 +2,4 @@
 
 namespace aiio.Contract.Processes.Responces;
 
-public record GetProcessResponse(ProcessDto Process); 
+public record GetProcessResponse(ProcessDetailDto Process); 

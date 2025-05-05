@@ -1,4 +1,5 @@
-﻿using aiio.Domain.Models.Departments;
+﻿using aiio.Domain.Exceptions;
+using aiio.Domain.Models.Departments;
 using aiio.Domain.Models.Locations;
 using aiio.Domain.Models.Resources;
 using aiio.Domain.Models.Roles;
@@ -10,7 +11,7 @@ namespace aiio.Domain.Models.Processes
     public class Process : BaseModel
     {
         public string? Description { get; private set; }
-        public Guid CreatedById  { get; private set; }
+        public Guid CreatedById { get; private set; }
         public User CreatedBy { get; private set; } = default!;
         public List<Department> Departments { get; private set; } = default!;
         public List<Role> Roles { get; private set; } = default!;
@@ -63,6 +64,20 @@ namespace aiio.Domain.Models.Processes
                 Locations = new List<Location>();
             }
             Locations.Add(location);
-        }        
+        }
+
+        public void ChangeTitle(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new DomainException("Title cannot be null or empty.");
+            }
+            Title = title;
+        }
+
+        public void ChangeDescription(string? discription)
+        {
+            Description = discription;
+        }
     }
 }

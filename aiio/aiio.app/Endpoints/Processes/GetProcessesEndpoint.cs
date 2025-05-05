@@ -10,7 +10,7 @@ namespace aiio.app.Endpoints.Processes
     {
         internal static IEndpointRouteBuilder MapGetProcessesEndpoint(this IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/api/process", GetProcesses)
+            endpoints.MapGet("/api/GetAllProcesses", GetProcesses)
                 .WithTags("Process")
                 .Produces<StudentResponse>(StatusCodes.Status201Created)
                 .Produces(StatusCodes.Status400BadRequest)
