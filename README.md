@@ -14,7 +14,7 @@ To run the project locally using Docker:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/aiio.git
+git clone https://github.com/mohsenjafari-aiio/dotnetpoc.git
 cd aiio
 ```
 
@@ -133,7 +133,7 @@ A global `ExceptionMiddleware` catches and logs all unhandled exceptions:
 
 ## ✅ Summary
 
-This POC proves that .NET 8 can deliver clean, scalable, testable APIs using modern backend practices. By applying Clean Architecture, DDD, and CQRS together, AIIO provides:
+This POC proves that .NET 8 can deliver clean, scalable, testable APIs using modern backend practices. By applying Clean Architecture, DDD, and CQRS together, it provides:
 
 - Clean, maintainable code
 - Domain-driven integrity
