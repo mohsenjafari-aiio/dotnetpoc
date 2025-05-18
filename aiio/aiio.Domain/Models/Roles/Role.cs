@@ -7,11 +7,11 @@ namespace aiio.Domain.Models.Roles
 {
     public class Role : BaseModel
     {
-        public Guid CreatedById { get; private set; }
+        public int CreatedById { get; private set; }
         public User CreatedBy { get; private set; } = default!;
         public List<Process> Processes { get; private set; } = default!;
 
-        public static Role Create(Guid id, string title, User user)
+        public static Role Create(int id, string title, User user)
         {
             var role = new Role
             {

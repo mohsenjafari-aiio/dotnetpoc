@@ -19,7 +19,7 @@ namespace aiio.Infrastructure.Repositories
             return process;
         }
 
-        public async Task<Process?> FindById(Guid processId)
+        public async Task<Process?> FindById(int processId)
         {
             return await _aiioDbContext.Processes.FirstOrDefaultAsync(r => r.Id == processId);
         }
@@ -29,7 +29,7 @@ namespace aiio.Infrastructure.Repositories
             return await _aiioDbContext.Processes.ToListAsync();
         }
 
-        public async Task<Process?> GetProcessDetailAsync(Guid processId)
+        public async Task<Process?> GetProcessDetailAsync(int processId)
         {
             return await _aiioDbContext.Processes
                 .Include(r => r.Resources)

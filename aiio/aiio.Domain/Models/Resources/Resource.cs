@@ -7,11 +7,11 @@ namespace aiio.Domain.Models.Resources
 {
     public class Resource : BaseModel
     {
-        public Guid CreatedById { get; private set; }
+        public int CreatedById { get; private set; }
         public User CreatedBy { get; private set; } = default!;
         public List<Process> Processes { get; private set; } = default!;
 
-        public static Resource Create(Guid id, string title, User user)
+        public static Resource Create(int id, string title, User user)
         {
             var resource = new Resource
             {

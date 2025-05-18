@@ -16,7 +16,7 @@ namespace aiio.Domain.Models.Users
         public List<Location> Locations { get; private set; } = default!;
 
 
-        public static User Create(Guid id, string title)
+        public static User Create(int id, string title)
         {
             var user = new User
             { 

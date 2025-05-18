@@ -2,7 +2,6 @@
 using aiio.Contract.Processes.Requests;
 using aiio.Contract.Processes.Responces;
 using aiio.Framework.Abstractions;
-using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace aiio.app.Endpoints.Processes
@@ -27,10 +26,7 @@ namespace aiio.app.Endpoints.Processes
             ICommandProcessor commandProcessor,
             CancellationToken cancellationToken)
         {
-            if (!Guid.TryParse(request.Id, out var guid))
-                return Results.BadRequest(Result.Fail("Invalid process ID"));
-
-            var command = new UpdateProcessCommand(guid,request.Title, request.Description);
+            var command = new UpdateProcessCommand(request.Id, request.Title, request.Description);
             var result = await commandProcessor.SendAsync(command, cancellationToken);
 
             if (result.IsFailed)

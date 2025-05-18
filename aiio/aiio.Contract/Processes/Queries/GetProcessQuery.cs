@@ -3,4 +3,4 @@ using aiio.Framework.Abstractions;
 
 namespace aiio.Contract.Processes.Queries;
 
-public record GetProcessQuery(Guid processId) : IQuery<FluentResults.Result<GetProcessResponse>>;
+public record GetProcessQuery(int processId) : IQuery<FluentResults.Result<GetProcessResponse>>;

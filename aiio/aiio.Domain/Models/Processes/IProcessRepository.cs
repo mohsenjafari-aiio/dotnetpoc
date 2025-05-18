@@ -4,7 +4,7 @@
     {
         Task<Process> Add(Process process);
         Task<IList<Process>> GetAllProcessesAsync();
-        Task<Process?> GetProcessDetailAsync(Guid processId);
-        Task<Process?> FindById(Guid processId);
+        Task<Process?> GetProcessDetailAsync(int processId);
+        Task<Process?> FindById(int processId);
     }
 }

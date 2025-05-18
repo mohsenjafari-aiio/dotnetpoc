@@ -8,7 +8,9 @@ namespace aiio.Application.Process.Commands.Validators
         public UpdateProcessValidator()
         {
             RuleFor(x => x.Id)
-                .NotEmpty().WithMessage("Id is required.");
+                .NotEmpty()
+                .GreaterThanOrEqualTo(0).WithMessage("invalid id.")
+                .WithMessage("Id is required.");
 
             RuleFor(x => x.Title)
                 .NotEmpty().WithMessage("Title is required.")

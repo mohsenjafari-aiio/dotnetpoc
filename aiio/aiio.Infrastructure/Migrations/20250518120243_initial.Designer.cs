@@ -12,8 +12,8 @@ using aiio.Infrastructure.Persistence;
 namespace aiio.Infrastructure.Migrations
 {
     [DbContext(typeof(AiioDbContext))]
-    [Migration("20250502103938_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250518120243_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("DepartmentProcess", b =>
                 {
-                    b.Property<Guid>("DepartmentsId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("DepartmentsId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("ProcessesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProcessesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("DepartmentsId", "ProcessesId");
 
@@ -42,11 +42,11 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("LocationProcess", b =>
                 {
-                    b.Property<Guid>("LocationsId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("LocationsId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("ProcessesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProcessesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("LocationsId", "ProcessesId");
 
@@ -57,11 +57,11 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("ProcessResource", b =>
                 {
-                    b.Property<Guid>("ProcessesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProcessesId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("ResourcesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ResourcesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("ProcessesId", "ResourcesId");
 
@@ -72,11 +72,11 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("ProcessRole", b =>
                 {
-                    b.Property<Guid>("ProcessesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProcessesId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("RolesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("ProcessesId", "RolesId");
 
@@ -87,17 +87,19 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("aiio.Domain.Models.Departments.Department", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -112,17 +114,19 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("aiio.Domain.Models.Locations.Location", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -137,17 +141,19 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("aiio.Domain.Models.Processes.Process", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -165,17 +171,19 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("aiio.Domain.Models.Resources.Resource", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -190,17 +198,19 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("aiio.Domain.Models.Roles.Role", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -215,9 +225,11 @@ namespace aiio.Infrastructure.Migrations
 
             modelBuilder.Entity("aiio.Domain.Models.Users.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()

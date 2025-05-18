@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace aiio.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +16,8 @@ namespace aiio.Infrastructure.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -28,8 +30,9 @@ namespace aiio.Infrastructure.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedById = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -48,8 +51,9 @@ namespace aiio.Infrastructure.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedById = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -68,9 +72,10 @@ namespace aiio.Infrastructure.Migrations
                 name: "Processes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedById = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -89,8 +94,9 @@ namespace aiio.Infrastructure.Migrations
                 name: "Resources",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedById = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -109,8 +115,9 @@ namespace aiio.Infrastructure.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedById = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -129,8 +136,8 @@ namespace aiio.Infrastructure.Migrations
                 name: "DepartmentProcess",
                 columns: table => new
                 {
-                    DepartmentsId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProcessesId = table.Column<Guid>(type: "uuid", nullable: false)
+                    DepartmentsId = table.Column<int>(type: "integer", nullable: false),
+                    ProcessesId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,8 +160,8 @@ namespace aiio.Infrastructure.Migrations
                 name: "LocationProcess",
                 columns: table => new
                 {
-                    LocationsId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProcessesId = table.Column<Guid>(type: "uuid", nullable: false)
+                    LocationsId = table.Column<int>(type: "integer", nullable: false),
+                    ProcessesId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -177,8 +184,8 @@ namespace aiio.Infrastructure.Migrations
                 name: "ProcessResource",
                 columns: table => new
                 {
-                    ProcessesId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ResourcesId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ProcessesId = table.Column<int>(type: "integer", nullable: false),
+                    ResourcesId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -201,8 +208,8 @@ namespace aiio.Infrastructure.Migrations
                 name: "ProcessRole",
                 columns: table => new
                 {
-                    ProcessesId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RolesId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ProcessesId = table.Column<int>(type: "integer", nullable: false),
+                    RolesId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

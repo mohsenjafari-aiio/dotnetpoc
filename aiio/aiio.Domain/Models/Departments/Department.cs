@@ -7,11 +7,11 @@ namespace aiio.Domain.Models.Departments
 {
     public class Department : BaseModel
     {
-        public Guid CreatedById { get; private set; }
+        public int CreatedById { get; private set; }
         public User CreatedBy { get; private set; } = default!;
         public List<Process> Processes { get; private set; } = default!;
 
-        public static Department Create(Guid id, string title, User user)
+        public static Department Create(int id, string title, User user)
         {
             var department = new Department
             {

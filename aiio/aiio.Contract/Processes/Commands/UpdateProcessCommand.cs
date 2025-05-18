@@ -3,4 +3,4 @@ using aiio.Framework.Abstractions;
 
 namespace aiio.Contract.Processes.Commands;
 
-public record UpdateProcessCommand(Guid Id, string Title, string? Description) : ICommand<FluentResults.Result<UpdateProcessResponse>>;
+public record UpdateProcessCommand(int Id, string Title, string? Description) : ICommand<FluentResults.Result<UpdateProcessResponse>>;

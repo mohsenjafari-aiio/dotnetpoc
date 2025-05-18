@@ -11,14 +11,14 @@ namespace aiio.Domain.Models.Processes
     public class Process : BaseModel
     {
         public string? Description { get; private set; }
-        public Guid CreatedById { get; private set; }
+        public int CreatedById { get; private set; }
         public User CreatedBy { get; private set; } = default!;
         public List<Department> Departments { get; private set; } = default!;
         public List<Role> Roles { get; private set; } = default!;
         public List<Resource> Resources { get; private set; } = default!;
         public List<Location> Locations { get; private set; } = default!;
 
-        public static Process Create(Guid id, string title, string? description, User user)
+        public static Process Create(int id, string title, string? description, User user)
         {
             var process = new Process
             {

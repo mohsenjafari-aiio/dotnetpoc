@@ -22,14 +22,12 @@ namespace aiio.app.Endpoints.Processes
         }
 
         private static async Task<IResult> GetProcess(
-            [FromQuery] string processId,
+            [FromQuery] int processId,
             IQueryProcessor queryProcessor,
             CancellationToken cancellationToken)
-        {
-            if (!Guid.TryParse(processId, out var guid))
-                return Results.BadRequest(Result.Fail("Invalid process ID"));
+        {            
 
-            var query = new GetProcessQuery(guid);
+            var query = new GetProcessQuery(processId);
             var result = await queryProcessor.SendAsync(query, cancellationToken);
 
             if (result.IsFailed)

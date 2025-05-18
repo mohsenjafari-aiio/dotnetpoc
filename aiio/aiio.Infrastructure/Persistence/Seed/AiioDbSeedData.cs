@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using aiio.Domain.Models.Departments;
 using aiio.Domain.Models.Locations;
 using aiio.Domain.Models.Processes;
@@ -14,76 +15,116 @@ namespace aiio.Infrastructure.Persistence
         public static async Task SeedAsync(IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<AiioDbContext>();            
+            var context = scope.ServiceProvider.GetRequiredService<AiioDbContext>();
 
             try
             {
                 // Ensure the database is created
                 await context.Database.EnsureCreatedAsync();
 
-                var userId = Guid.Parse("ffde379a-09b5-4e99-a9a9-13805fb040e2");
-                var user = await context.Users.FirstOrDefaultAsync(r => r.Id == userId);
+                var userCount = await context.Users.CountAsync();
                 // Seed Users
-                if (user is null)
+                if (userCount < 1000)
                 {
-                    user = User.Create(userId, "Default User");
-                    
-                    await context.Users.AddAsync(user);
-                    await context.SaveChangesAsync();                    
+                    var users = new ConcurrentBag<User>();
+
+                    Parallel.For(1, 1001 - userCount, i =>
+                    {
+                        var newUser = User.Create(userCount + i, $"User {userCount + i}");
+                        users.Add(newUser);
+                    });
+                    // Add users to the context
+                    await context.Users.AddRangeAsync(users);
+                    await context.SaveChangesAsync();
                 }
 
+                var user = await context.Users.FirstAsync();
+
                 // Seed Locations
-                if (!await context.Locations.AnyAsync())
+                var locationCount = await context.Locations.CountAsync();
+                if (locationCount < 1000)
                 {
-                    var location = Location.Create(Guid.NewGuid(), "Default Location", user);                    
-                    context.Locations.Add(location);
+                    var locations = new ConcurrentBag<Location>();
+
+                    Parallel.For(1, 1001 - locationCount, i =>
+                    {
+                        var newLocation = Location.Create(locationCount + i, $"Location {locationCount + i}", user);
+                        locations.Add(newLocation);
+                    });
+                    // Add locations to the context
+                    await context.Locations.AddRangeAsync(locations);
                     await context.SaveChangesAsync();
                 }
 
                 // Seed Roles
-                if (!await context.Roles.AnyAsync())
+                var roleCount = await context.Roles.CountAsync();
+                if (roleCount < 1000)
                 {
-                    var role = Role.Create(Guid.NewGuid(), "Default Role", user);                    
-                    context.Roles.Add(role);
-                    await context.SaveChangesAsync();                    
+                    var roles = new ConcurrentBag<Role>();
+                    Parallel.For(1, 1001 - roleCount, i =>
+                    {
+                        var newRole = Role.Create(roleCount + i, $"Role {roleCount + i}", user);
+                        roles.Add(newRole);
+                        
+                    });
+                    // Add roles to the context
+                    await context.Roles.AddRangeAsync(roles);
+                    await context.SaveChangesAsync();
                 }
 
                 // Seed Resources
-                if (!await context.Resources.AnyAsync())
+                var resourceCount = await context.Resources.CountAsync();
+                if (resourceCount<1000)
                 {
-                    var resource = Resource.Create(Guid.NewGuid(), "Default Resource", user);                    
-                    context.Resources.Add(resource);
+                    var resources = new ConcurrentBag<Resource>();
+                    Parallel.For(1, 1001 - resourceCount, i =>
+                    {
+                        var newResource = Resource.Create(resourceCount + i, $"Resource {resourceCount + i}", user);
+                        resources.Add(newResource);                        
+                    });
+                    // Add resources to the context
+                    await context.Resources.AddRangeAsync(resources);
                     await context.SaveChangesAsync();
                 }
 
                 // Seed Departments
-                if (!await context.Departments.AnyAsync())
+                var departmentCount = await context.Departments.CountAsync();
+                if (departmentCount<1000)
                 {
-                    var department = Department.Create(Guid.NewGuid(), "Default Department", user);                    
-                    context.Departments.Add(department);
+                    var departments = new ConcurrentBag<Department>();
+                    Parallel.For(1, 1001 - departmentCount, i =>
+                    {
+                        var newDepartment = Department.Create(departmentCount + i, $"Department {departmentCount + i}", user);
+                        departments.Add(newDepartment);                        
+                    });
+                    // Add departments to the context
+                    await context.Departments.AddRangeAsync(departments);
                     await context.SaveChangesAsync();
                 }
 
                 // Seed Processes
-                if (!await context.Processes.AnyAsync())
+                var processCount = await context.Processes.CountAsync();
+                if (processCount < 1000)
                 {
-                    var processId = Guid.Parse("a172035c-bd81-4d3e-80be-7a9f8d58dee6");
-                    var process = Process.Create(processId, "Default Process", "Default process description", user);
-                    
-                    context.Processes.Add(process);
-                    await context.SaveChangesAsync();
-
-                    // Add relationships
                     var department = await context.Departments.FirstAsync();
                     var role = await context.Roles.FirstAsync();
                     var resource = await context.Resources.FirstAsync();
                     var location = await context.Locations.FirstAsync();
 
-                    process.AddDepartment(department);
-                    process.AddRole(role);
-                    process.AddResource(resource);
-                    process.AddLocation(location);
+                    var processes = new ConcurrentBag<Process>();
+                    Parallel.For(1, 1001 - processCount, i =>
+                    {
+                        var newProcess = Process.Create(processCount + i, $"Process {processCount + i}", $"Description for Process {processCount + i}", user);
+                        newProcess.AddDepartment(department);
+                        newProcess.AddRole(role);
+                        newProcess.AddResource(resource);
+                        newProcess.AddLocation(location);
 
+                        processes.Add(newProcess);                        
+                    });
+
+                    // Add processes to the context
+                    await context.Processes.AddRangeAsync(processes);
                     await context.SaveChangesAsync();
                 }
             }
